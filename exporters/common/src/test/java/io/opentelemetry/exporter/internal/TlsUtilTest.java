@@ -93,16 +93,13 @@ class TlsUtilTest {
         certificate,
         com.google.common.io.Files.toByteArray(selfSignedCertificate.certificate()),
         StandardOpenOption.APPEND);
-    Files.write(
-        certificate,
-        "\n".getBytes(StandardCharsets.UTF_8),
-        StandardOpenOption.APPEND);
+    Files.write(certificate, "\n".getBytes(StandardCharsets.UTF_8), StandardOpenOption.APPEND);
 
     assertThatCode(
-        () ->
-            TlsUtil.keyManager(
-                com.google.common.io.Files.toByteArray(selfSignedCertificate.privateKey()),
-                com.google.common.io.Files.toByteArray(new File(certificate.toString()))))
+            () ->
+                TlsUtil.keyManager(
+                    com.google.common.io.Files.toByteArray(selfSignedCertificate.privateKey()),
+                    com.google.common.io.Files.toByteArray(new File(certificate.toString()))))
         .doesNotThrowAnyException();
   }
 
